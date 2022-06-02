@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f89c2a2df5fc
-Revises: f58a4e0c8784
-Create Date: 2022-05-28 15:10:12.435290
+Revision ID: ec2f4b447d2f
+Revises: 
+Create Date: 2022-06-02 19:30:14.412312
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f89c2a2df5fc'
-down_revision = 'f58a4e0c8784'
+revision = 'ec2f4b447d2f'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -30,7 +30,6 @@ def upgrade():
     sa.Column('website_link', sa.String(length=120), nullable=True),
     sa.Column('looking_for_venue', sa.Boolean(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.Column('genre', sa.String(length=120), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('Venue',
@@ -45,16 +44,17 @@ def upgrade():
     sa.Column('website_link', sa.String(length=120), nullable=True),
     sa.Column('looking_for_talent', sa.Boolean(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.Column('genre', sa.String(length=120), nullable=True),
+    sa.Column('genres', sa.String(length=120), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('shows',
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('venue_id', sa.Integer(), nullable=False),
     sa.Column('artist_id', sa.Integer(), nullable=False),
-    sa.Column('show_date', sa.DateTime(), nullable=False),
+    sa.Column('start_time', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['artist_id'], ['Artist.id'], ),
     sa.ForeignKeyConstraint(['venue_id'], ['Venue.id'], ),
-    sa.PrimaryKeyConstraint('venue_id', 'artist_id')
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
