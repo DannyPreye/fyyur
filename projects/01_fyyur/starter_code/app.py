@@ -43,10 +43,14 @@ class Shows(db.Model):
         'Artist.id'), nullable=False)
     start_time = db.Column(db.DateTime, nullable=False)
 
+    def __repr__(self):
+        return f"start time{self.start_time}"
+
 
 class Venue(db.Model):
     __tablename__ = 'Venue'
     id = db.Column(db.Integer, primary_key=True)
+
     name = db.Column(db.String)
     city = db.Column(db.String(120))
     state = db.Column(db.String(120))
@@ -62,6 +66,9 @@ class Venue(db.Model):
                             backref=db.backref('Venue_shows', lazy=True))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+
+    def __repr__(self):
+        return f"Venue Name{self.name} Venue City{self.city}"
 
 
 class Artist(db.Model):
@@ -82,6 +89,8 @@ class Artist(db.Model):
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
+    def __repr__(self):
+        return f"Artist Name{self.name}"
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
 
